@@ -8,31 +8,47 @@ import { deleteTaskThunk, switchTaskThunk } from '../../features/redux/actions/t
 
 type TaskProps = {
   task: TaskType;
-  setEditingTask: (task: TaskType) => void
-  setShow: (value: boolean) => void
+  setEditingTask: (task: TaskType) => void;
+  setShow: (value: boolean) => void;
 };
 
 export default function SingleTask({ task, setEditingTask, setShow }: TaskProps): JSX.Element {
   const dispatch = useAppDispatch();
   return (
-    <Card style={{ width: '80rem', height: '12rem', textAlign: 'center' }}>
+    <Card
+      style={{
+        width: '80rem',
+        height: '12rem',
+        textAlign: 'center',
+        backgroundColor: task.status === true ? 'lightgreen' : 'lightpink',
+      }}
+    >
       <Card.Body>
-        <Card.Title>Task</Card.Title>
+        <Card.Title>Task: {task.value}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           Status: {task.status === false ? 'Not Done yet' : 'Done'}
         </Card.Subtitle>
-        <Card.Text>{task.value}</Card.Text>
         <Form.Check // prettier-ignore
           type="switch"
           checked={task.status === true}
           onClick={() => dispatch(switchTaskThunk(task.id, task.status))}
           id="custom-switch"
         />
-        <Button onClick={() => {
-          setShow(true)
-          setEditingTask(task)
-        }} variant="warning">Edit</Button>{' '}
-        <Button onClick={() => dispatch(deleteTaskThunk(task.id))} variant="danger">
+        <Button
+          style={{ marginTop: '24px' }}
+          onClick={() => {
+            setShow(true);
+            setEditingTask(task);
+          }}
+          variant="warning"
+        >
+          Edit
+        </Button>{' '}
+        <Button
+          style={{ marginTop: '24px' }}
+          onClick={() => dispatch(deleteTaskThunk(task.id))}
+          variant="danger"
+        >
           Delete
         </Button>{' '}
       </Card.Body>
