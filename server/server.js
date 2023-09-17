@@ -29,7 +29,7 @@ app.use(express.static('public'));
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(sessionParser);
 
-app.use('/api/notes', taskRouter);
+app.use('/api/tasks', taskRouter);
 app.use('/api/auth', authAuthRouter);
 
 app.listen(PORT, () => {

@@ -12,6 +12,7 @@ taskRouter.get('/', async (req, res) => {
 
 taskRouter.post('/', async (req, res) => {
   try {
+    console.log('-----------', req.body);
     const task = await Task.create({
       value: req.body.value,
       status: false,
